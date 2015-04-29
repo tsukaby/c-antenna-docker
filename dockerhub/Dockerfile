@@ -24,9 +24,13 @@ RUN wget https://s3-ap-northeast-1.amazonaws.com/c-antenna/binary/c-antenna-${AP
 RUN tar xfvz c-antenna.tar.gz
 RUN mv c-antenna /usr/local/
 
+# Cron
+ADD files/etc/crontab /etc/crontab
+
 WORKDIR /usr/local/c-antenna
 
 EXPOSE 9000
 
 CMD redis-server /etc/redis/redis.conf &&\
+  cron &&\
   ./bin/c-antenna -Dconfig.resource=prod.conf -Dhttp.port=9000

@@ -1,0 +1,8 @@
+## Crawl program
+*/5 * * * * export LANG=ja_JP.UTF-8; java -Dconfig.resource=prod.conf -jar /usr/local/app/c-antenna-batch/c-antenna-batch.jar
+
+## Caching for sites
+*/2 * * * * wget -q 'http://localhost/api/sites?page=1&count=9&sort[key]=HATEBU_COUNT&sort[order]=2' -O -
+*/2 * * * * wget -q 'http://localhost/api/sites?page=2&count=9&sort[key]=HATEBU_COUNT&sort[order]=2' -O -
+*/2 * * * * wget -q 'http://localhost/api/articles?page=1&count=20' -O -
+*/2 * * * * wget -q 'http://localhost/api/articles?page=2&count=20' -O -
