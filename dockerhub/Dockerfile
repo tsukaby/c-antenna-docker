@@ -19,15 +19,20 @@ RUN mv phantomjs-$PHANTOM_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin/
 
 # Copy application
 ENV APP_SHA1 2f0953475f650047d2534c22f411c671c1b5f318
+
 WORKDIR /tmp
 RUN wget https://s3-ap-northeast-1.amazonaws.com/c-antenna/binary/c-antenna-${APP_SHA1}.tar.gz -O c-antenna.tar.gz
+RUN wget https://s3-ap-northeast-1.amazonaws.com/c-antenna/binary/c-antenna-batch-${APP_SHA1}.jar -O c-antenna-batch.jar
 RUN tar xfvz c-antenna.tar.gz
-RUN mv c-antenna /usr/local/
+RUN mkdir /usr/local/app
+RUN mkdir /usr/local/batch
+RUN mv c-antenna /usr/local/app/
+RUN mv c-antenna-batch.jar /usr/local/batch/
 
 # Cron
 ADD files/etc/crontab /etc/crontab
 
-WORKDIR /usr/local/c-antenna
+WORKDIR /usr/local/app/c-antenna
 
 EXPOSE 9000
 
