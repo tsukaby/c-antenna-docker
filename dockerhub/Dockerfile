@@ -17,6 +17,10 @@ RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOM_VERS
 RUN bzip2 -dc phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2 | tar xvf -
 RUN mv phantomjs-$PHANTOM_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin/
 
+# Japanese
+RUN apt-get -y install language-pack-ja
+RUN update-locale LANG=ja_JP.UTF-8
+
 # Copy application
 ENV APP_SHA1 25c37070645262f5b6c459be58e9d2ff9dfecbb7
 
@@ -34,5 +38,5 @@ WORKDIR /usr/local/app/c-antenna
 EXPOSE 9000
 
 CMD redis-server /etc/redis/redis.conf &&\
-  java -Dconfig.resource=prod.conf -jar /usr/local/batch/c-antenna-batch.jar &&\
+  LANG=ja_JP.UTF-8 java -Dconfig.resource=prod.conf -jar /usr/local/batch/c-antenna-batch.jar &&\
   ./bin/c-antenna -Dconfig.resource=prod.conf -Dhttp.port=9000
