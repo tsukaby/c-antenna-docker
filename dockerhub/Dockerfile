@@ -18,7 +18,7 @@ RUN bzip2 -dc phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2 | tar xvf -
 RUN mv phantomjs-$PHANTOM_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin/
 
 # Copy application
-ENV APP_SHA1 2f0953475f650047d2534c22f411c671c1b5f318
+ENV APP_SHA1 25c37070645262f5b6c459be58e9d2ff9dfecbb7
 
 WORKDIR /tmp
 RUN wget https://s3-ap-northeast-1.amazonaws.com/c-antenna/binary/c-antenna-${APP_SHA1}.tar.gz -O c-antenna.tar.gz
