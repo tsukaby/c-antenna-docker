@@ -29,13 +29,10 @@ RUN mkdir /usr/local/batch
 RUN mv c-antenna /usr/local/app/
 RUN mv c-antenna-batch.jar /usr/local/batch/
 
-# Cron
-ADD files/etc/crontab /etc/crontab
-
 WORKDIR /usr/local/app/c-antenna
 
 EXPOSE 9000
 
 CMD redis-server /etc/redis/redis.conf &&\
-  cron &&\
+  java -Dconfig.resource=prod.conf -jar /usr/local/batch/c-antenna-batch.jar &&\
   ./bin/c-antenna -Dconfig.resource=prod.conf -Dhttp.port=9000
