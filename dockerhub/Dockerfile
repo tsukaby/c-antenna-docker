@@ -22,7 +22,7 @@ RUN apt-get -y install language-pack-ja
 RUN update-locale LANG=ja_JP.UTF-8
 
 # Copy application
-ENV APP_SHA1 25c37070645262f5b6c459be58e9d2ff9dfecbb7
+ENV APP_SHA1 0456ee00d7302bd455d64d5221b3f2480dcc34d3
 
 WORKDIR /tmp
 RUN wget https://s3-ap-northeast-1.amazonaws.com/c-antenna/binary/c-antenna-${APP_SHA1}.tar.gz -O c-antenna.tar.gz
