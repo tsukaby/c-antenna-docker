@@ -1,4 +1,4 @@
-FROM dockerfile/java:oracle-java8
+FROM java:8
 
 MAINTAINER tsukaby
 
@@ -17,9 +17,12 @@ RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOM_VERS
 RUN bzip2 -dc phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2 | tar xvf -
 RUN mv phantomjs-$PHANTOM_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin/
 
-# Japanese
-RUN apt-get -y install language-pack-ja
-RUN update-locale LANG=ja_JP.UTF-8
+# Reconfig
+RUN apt-get -y install locales
+RUN echo LANG=ja_JP.UTF-8 UTF-8 > /etc/default/locale
+RUN dpkg-reconfigure -f noninteractive locales
+RUN echo "Asia/Tokyo" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Copy application
 ENV APP_SHA1 0456ee00d7302bd455d64d5221b3f2480dcc34d3
