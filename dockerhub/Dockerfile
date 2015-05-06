@@ -10,6 +10,9 @@ RUN apt-get -y install build-essential g++ flex bison gperf ruby perl \
   libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev \
   libpng-dev libjpeg-dev
 
+# Redis demonize off
+RUN sed -i -e "s/daemonize yes/daemonize no/g" /etc/redis/redis.conf
+
 # PhantomJS
 ENV PHANTOM_VERSION 1.9.8
 WORKDIR /tmp
@@ -23,6 +26,11 @@ RUN echo LANG=ja_JP.UTF-8 UTF-8 > /etc/default/locale
 RUN dpkg-reconfigure -f noninteractive locales
 RUN echo "Asia/Tokyo" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
+
+# Supervisor
+RUN apt-get -y install supervisor
+RUN mkdir -p /var/log/supervisor
+COPY files/etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy application
 ENV APP_SHA1 0456ee00d7302bd455d64d5221b3f2480dcc34d3
@@ -40,6 +48,4 @@ WORKDIR /usr/local/app/c-antenna
 
 EXPOSE 9000
 
-CMD redis-server /etc/redis/redis.conf &&\
-  LANG=ja_JP.UTF-8 java -Dconfig.resource=prod.conf -jar /usr/local/batch/c-antenna-batch.jar &&\
-  ./bin/c-antenna -Dconfig.resource=prod.conf -Dhttp.port=9000
+CMD ["/usr/bin/supervisord"]
