@@ -25,7 +25,7 @@ RUN mv phantomjs-$PHANTOM_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin/
 RUN apt-get -y install locales
 RUN sed -i -e "s/# ja_JP.UTF-8 UTF-8/ja_JP.UTF-8 UTF-8/g" /etc/locale.gen
 RUN locale-gen
-RUN update-locale LANG=en_US.UTF-8
+RUN update-locale LANG=ja_JP.UTF-8
 
 ## TimeZone
 RUN echo "Asia/Tokyo" > /etc/timezone
