@@ -37,7 +37,7 @@ RUN mkdir -p /var/log/supervisor
 COPY files/etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy application
-ENV APP_SHA1 1a04e903c07322e8f34e5ed884cc61f01e04a4e0
+ENV APP_SHA1 83e995187fcf4afa764fb1c744bf3e6a48c6a002
 
 WORKDIR /tmp
 RUN wget https://s3-ap-northeast-1.amazonaws.com/c-antenna/binary/c-antenna-${APP_SHA1}.tar.gz -O c-antenna.tar.gz
