@@ -36,6 +36,8 @@ RUN apt-get -y install supervisor
 RUN mkdir -p /var/log/supervisor
 COPY files/etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN wget http://central.maven.org/maven2/org/aspectj/aspectjweaver/1.8.6/aspectjweaver-1.8.6.jar -P /usr/local
+
 # Copy application
 ENV APP_SHA1 bb3905ae10c04521d7ebc4997374b059579d218e
 
