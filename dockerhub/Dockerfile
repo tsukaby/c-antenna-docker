@@ -50,11 +50,10 @@ RUN mkdir /usr/local/batch
 RUN mv c-antenna /usr/local/app/
 RUN mv c-antenna-batch.jar /usr/local/batch/
 
-# Docker host ip
-RUN echo "export DD_AGENT_IP=\`/sbin/ip route|awk '/default/ { print \$3 }'\`" >> ~/.bashrc
+COPY files/usr/local/startup.sh /usr/local/startup.sh
 
 WORKDIR /usr/local/app/c-antenna
 
 EXPOSE 9000
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/local/startup.sh"]
