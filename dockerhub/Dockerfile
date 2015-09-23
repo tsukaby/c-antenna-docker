@@ -51,7 +51,7 @@ RUN mv c-antenna /usr/local/app/
 RUN mv c-antenna-batch.jar /usr/local/batch/
 
 # Docker host ip
-RUN echo "export DD_AGENT_IP=\`/sbin/ip route|awk '/default/ { print $3 }'\`" >> ~/.bashrc
+RUN echo "export DD_AGENT_IP=\`/sbin/ip route|awk '/default/ { print \$3 }'\`" >> ~/.bashrc
 
 WORKDIR /usr/local/app/c-antenna
 
