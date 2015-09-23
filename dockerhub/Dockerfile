@@ -51,6 +51,7 @@ RUN mv c-antenna /usr/local/app/
 RUN mv c-antenna-batch.jar /usr/local/batch/
 
 COPY files/usr/local/startup.sh /usr/local/startup.sh
+RUN chmod +x /usr/local/startup.sh
 
 WORKDIR /usr/local/app/c-antenna
 
