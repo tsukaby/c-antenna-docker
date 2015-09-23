@@ -54,4 +54,4 @@ WORKDIR /usr/local/app/c-antenna
 
 EXPOSE 9000
 
-CMD ["/usr/bin/supervisord"]
+CMD ["export DD_AGENT_IP=`/sbin/ip route|awk '/default/ { print $3 }'` && /usr/bin/supervisord"]
