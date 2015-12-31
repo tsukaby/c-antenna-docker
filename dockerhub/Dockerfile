@@ -14,11 +14,16 @@ RUN apt-get -y install build-essential g++ flex bison gperf ruby perl \
 RUN sed -i -e "s/daemonize yes/daemonize no/g" /etc/redis/redis.conf
 
 # PhantomJS
-ENV PHANTOM_VERSION 1.9.8
-WORKDIR /tmp
-RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2
-RUN bzip2 -dc phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2 | tar xvf -
-RUN mv phantomjs-$PHANTOM_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin/
+RUN apt-get -y install build-essential g++ flex bison gperf ruby perl \
+  libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev \
+  libpng-dev libjpeg-dev python libx11-dev libxext-dev
+ENV PHANTOM_VERSION c7d7c656b3924e08c5488a58165289fbb1a512bb
+RUN git clone --recurse-submodules git://github.com/ariya/phantomjs.git && \
+  cd phantomjs && \
+  git checkout ${PHANTOM_VERSION} && \
+  ./build.py
+RUN mv phantomjs/bin/phantomjs /usr/local/bin/
+RUN rm -rf phantomjs
 
 # Reconfig
 ## Locale
