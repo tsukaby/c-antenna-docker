@@ -44,7 +44,7 @@ COPY files/etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervi
 RUN wget http://central.maven.org/maven2/org/aspectj/aspectjweaver/1.8.6/aspectjweaver-1.8.6.jar -P /usr/local
 
 # Copy application
-ENV APP_SHA1 2a86f434cc7453c15e95d779dc85b4b6a01954c3
+ENV APP_SHA1 7189453baa5b29b1506727f6e445c61b82807cd5
 
 WORKDIR /tmp
 RUN wget https://s3-ap-northeast-1.amazonaws.com/c-antenna/binary/c-antenna-${APP_SHA1}.tar.gz -O c-antenna.tar.gz
